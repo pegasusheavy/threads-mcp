@@ -4,12 +4,12 @@
 
 ## Project Overview
 
-**Name**: Threads MCP Server  
-**Package**: @pegasusheavy/threads-mcp  
-**Version**: 1.0.0  
-**License**: MIT  
-**Organization**: Pegasus Heavy Industries LLC  
-**Repository**: https://github.com/pegasusheavy/threads-mcp  
+**Name**: Threads MCP Server
+**Package**: @pegasusheavy/threads-mcp
+**Version**: 1.0.0
+**License**: MIT
+**Organization**: Pegasus Heavy Industries LLC
+**Repository**: https://github.com/pegasusheavy/threads-mcp
 **Website**: https://pegasusheavy.github.io/threads-mcp/
 
 ## Description
@@ -128,19 +128,19 @@ Manual token configuration also supported:
 
 ### Core Components
 
-**src/index.ts** - Entry point, handles OAuth vs manual token detection  
-**src/server.ts** - MCP server implementation with tool handlers  
-**src/client/threads-client.ts** - Threads API client with all methods  
-**src/client/enhanced-threads-client.ts** - Extended client with rate limiting/caching  
-**src/auth/oauth.ts** - OAuth 2.0 core functionality  
-**src/auth/oauth-server.ts** - Automatic OAuth server with browser handling  
-**src/types/threads.ts** - TypeScript types and Zod schemas  
+**src/index.ts** - Entry point, handles OAuth vs manual token detection
+**src/server.ts** - MCP server implementation with tool handlers
+**src/client/threads-client.ts** - Threads API client with all methods
+**src/client/enhanced-threads-client.ts** - Extended client with rate limiting/caching
+**src/auth/oauth.ts** - OAuth 2.0 core functionality
+**src/auth/oauth-server.ts** - Automatic OAuth server with browser handling
+**src/types/threads.ts** - TypeScript types and Zod schemas
 
 ### Utility Components
 
-**src/utils/rate-limiter.ts** - Token bucket rate limiting  
-**src/utils/cache.ts** - In-memory caching with TTL/LRU  
-**src/utils/webhook.ts** - Webhook management with HMAC verification  
+**src/utils/rate-limiter.ts** - Token bucket rate limiting
+**src/utils/cache.ts** - In-memory caching with TTL/LRU
+**src/utils/webhook.ts** - Webhook management with HMAC verification
 
 ## API Client Methods
 
@@ -217,8 +217,8 @@ pnpm run format          # Format code
 
 ### Git Hooks (Husky)
 
-**Pre-commit**: Runs lint-staged + TypeScript type checking  
-**Pre-push**: Runs tests, coverage, lint, and build  
+**Pre-commit**: Runs lint-staged + TypeScript type checking
+**Pre-push**: Runs tests, coverage, lint, and build
 **Commit-msg**: Validates conventional commit format
 
 ## Error Handling
@@ -314,6 +314,6 @@ MIT License - Copyright (c) 2025 Pegasus Heavy Industries LLC
 
 ---
 
-Last Updated: December 2025  
+Last Updated: December 2025
 Maintained by: Pegasus Heavy Industries LLC
 

@@ -3,7 +3,6 @@ import axios from 'axios';
 import { ThreadsOAuth, TokenManager, type StoredToken } from '../oauth';
 
 vi.mock('axios');
-const mockedAxios = vi.mocked(axios);
 
 describe('ThreadsOAuth', () => {
   let oauth: ThreadsOAuth;
@@ -52,7 +51,7 @@ describe('ThreadsOAuth', () => {
         },
       };
 
-      mockedAxios.create.mockReturnValue({
+      vi.mocked(axios.create).mockReturnValue({
         post: vi.fn().mockResolvedValue(mockResponse),
       } as any);
 
@@ -72,7 +71,7 @@ describe('ThreadsOAuth', () => {
         },
       };
 
-      mockedAxios.create.mockReturnValue({
+      vi.mocked(axios.create).mockReturnValue({
         post: vi.fn().mockResolvedValue(mockResponse),
       } as any);
 
@@ -92,7 +91,7 @@ describe('ThreadsOAuth', () => {
         },
       };
 
-      mockedAxios.create.mockReturnValue({
+      vi.mocked(axios.create).mockReturnValue({
         get: vi.fn().mockResolvedValue(mockResponse),
       } as any);
 
@@ -117,7 +116,7 @@ describe('ThreadsOAuth', () => {
         },
       };
 
-      mockedAxios.create.mockReturnValue({
+      vi.mocked(axios.create).mockReturnValue({
         get: vi.fn().mockResolvedValue(mockResponse),
       } as any);
 
@@ -140,7 +139,7 @@ describe('ThreadsOAuth', () => {
         },
       };
 
-      mockedAxios.create.mockReturnValue({
+      vi.mocked(axios.create).mockReturnValue({
         get: vi.fn().mockResolvedValue(mockResponse),
       } as any);
 
@@ -155,7 +154,7 @@ describe('ThreadsOAuth', () => {
         data: {},
       };
 
-      mockedAxios.create.mockReturnValue({
+      vi.mocked(axios.create).mockReturnValue({
         get: vi.fn().mockResolvedValue(mockResponse),
       } as any);
 
@@ -190,7 +189,7 @@ describe('ThreadsOAuth', () => {
           }),
       };
 
-      mockedAxios.create.mockReturnValue(mockClient as any);
+      vi.mocked(axios.create).mockReturnValue(mockClient as any);
 
       oauth = new ThreadsOAuth(mockConfig);
       const result = await oauth.completeOAuthFlow('auth-code-123');
@@ -299,7 +298,7 @@ describe('TokenManager', () => {
         }),
       };
 
-      mockedAxios.create.mockReturnValue(mockClient as any);
+      vi.mocked(axios.create).mockReturnValue(mockClient as any);
       oauth = new ThreadsOAuth(mockConfig);
       tokenManager = new TokenManager(oauth);
 
@@ -322,7 +321,7 @@ describe('TokenManager', () => {
         get: vi.fn(),
       };
 
-      mockedAxios.create.mockReturnValue(mockClient as any);
+      vi.mocked(axios.create).mockReturnValue(mockClient as any);
       oauth = new ThreadsOAuth(mockConfig);
       tokenManager = new TokenManager(oauth);
 

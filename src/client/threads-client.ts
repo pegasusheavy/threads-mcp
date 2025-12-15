@@ -52,10 +52,15 @@ export class ThreadsClient {
     });
 
     // Add request interceptor for authentication
-    this.client.interceptors.request.use((config) => {
+    this.client.interceptors.request.use(async (config) => {
+      // Use token manager if available, otherwise use static token
+      const accessToken = this.config.tokenManager
+        ? await this.config.tokenManager.getToken()
+        : this.config.accessToken;
+
       config.params = {
         ...config.params,
-        access_token: this.config.accessToken,
+        access_token: accessToken,
       };
       return config;
     });
@@ -66,9 +71,7 @@ export class ThreadsClient {
       (error: AxiosError) => {
         if (error.response) {
           throw new ThreadsAPIError(
-            error.response.data
-              ? JSON.stringify(error.response.data)
-              : 'Unknown API error',
+            error.response.data ? JSON.stringify(error.response.data) : 'Unknown API error',
             error.response.status,
             error.response.data
           );
@@ -85,7 +88,13 @@ export class ThreadsClient {
    * Get the authenticated user's profile
    */
   async getProfile(fields?: string[]): Promise<ThreadsUser> {
-    const defaultFields = ['id', 'username', 'name', 'threads_profile_picture_url', 'threads_biography'];
+    const defaultFields = [
+      'id',
+      'username',
+      'name',
+      'threads_profile_picture_url',
+      'threads_biography',
+    ];
     const requestFields = fields || defaultFields;
 
     const response = await this.client.get(`/${this.config.userId}`, {
@@ -200,15 +209,11 @@ export class ThreadsClient {
     const containerId = containerResponse.data.id;
 
     // Step 2: Publish the media container
-    const publishResponse = await this.client.post(
-      `/${this.config.userId}/threads_publish`,
-      null,
-      {
-        params: {
-          creation_id: containerId,
-        },
-      }
-    );
+    const publishResponse = await this.client.post(`/${this.config.userId}/threads_publish`, null, {
+      params: {
+        creation_id: containerId,
+      },
+    });
 
     return CreateThreadResponseSchema.parse(publishResponse.data);
   }
@@ -288,7 +293,11 @@ export class ThreadsClient {
   /**
    * Reply to a thread
    */
-  async replyToThread(threadId: string, text: string, replyControl?: CreateThreadParams['replyControl']): Promise<CreateThreadResponse> {
+  async replyToThread(
+    threadId: string,
+    text: string,
+    replyControl?: CreateThreadParams['replyControl']
+  ): Promise<CreateThreadResponse> {
     return this.createThread({
       text,
       replyToId: threadId,
@@ -308,4 +317,3 @@ export class ThreadsClient {
     }
   }
 }
-

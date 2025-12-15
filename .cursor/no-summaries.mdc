@@ -1,1 +1,5 @@
+---
+alwaysApply: true
+---
+
 Do not create summary documents, completion reports, or documentation files unless explicitly requested by the user.

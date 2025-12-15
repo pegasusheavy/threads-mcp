@@ -101,6 +101,14 @@ export interface ThreadsConfig {
   accessToken: string;
   userId: string;
   apiVersion?: string;
+  /**
+   * Optional token manager for automatic token refresh
+   * When provided, the client will automatically refresh tokens as needed
+   */
+  tokenManager?: {
+    getToken: () => Promise<string>;
+    getUserId: () => string;
+  };
 }
 
 // Export for external use
@@ -130,4 +138,3 @@ export interface GetRepliesParams {
   fields?: string[];
   reverse?: boolean;
 }
-

@@ -99,7 +99,15 @@
           "name": "How do I install Threads MCP Server?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Install via npm: npm install @pegasusheavy/threads-mcp. Configure with your Threads API credentials (THREADS_ACCESS_TOKEN and THREADS_USER_ID). Add to Claude Desktop config or use programmatically."
+            "text": "Install via npm: npm install @pegasusheavy/threads-mcp. Complete the OAuth 2.0 flow to get your credentials. Configure with your long-lived access token and user ID. Add to Claude Desktop config or use programmatically. See the OAuth Setup Guide for detailed instructions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I get Threads API credentials?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Threads uses OAuth 2.0 authentication. Create a Meta app at developers.facebook.com, add the Threads API product, then run the OAuth flow using the included oauth-setup utility. You'll get a long-lived token valid for 60 days that can be automatically refreshed."
           }
         },
         {
@@ -299,13 +307,18 @@ A production-ready Model Context Protocol server for Threads.com API. Built for 
                             </svg>
                             <span class="thread-time">30m</span>
                         </div>
-                        <div class="thread-content">💻 Complete Claude Desktop Setup Guide:
+                        <div class="thread-content">💻 Super Simple Claude Desktop Setup:
 
-<strong>Step 1: Get Your Threads API Credentials</strong>
-• Go to developers.facebook.com
-• Create a new app with Threads API access
-• Generate a User Access Token
-• Save your Access Token and User ID
+<strong>⚠️ Important: Threads Uses OAuth 2.0</strong>
+Don't worry - the server handles everything automatically! Just follow these 3 steps:
+
+<strong>Step 1: Create a Meta App</strong>
+• Go to <a href="https://developers.facebook.com/" class="thread-link" target="_blank" rel="noopener noreferrer">developers.facebook.com</a>
+• Click "My Apps" → "Create App"
+• Select "Other" use case, then "Consumer" type
+• Add the Threads API product to your app
+• In Threads settings, add OAuth redirect URI: <code>http://localhost:48810/callback</code>
+• Save your <strong>App ID</strong> and <strong>App Secret</strong>
 
 <strong>Step 2: Configure Claude Desktop</strong>
 Open your Claude Desktop config file:
@@ -314,27 +327,37 @@ Open your Claude Desktop config file:
 • <strong>Windows:</strong> %APPDATA%\Claude\claude_desktop_config.json
 • <strong>Linux:</strong> ~/.config/Claude/claude_desktop_config.json
 
-<strong>Step 3: Add This Configuration</strong>
-Add the threads-mcp server to your config:</div>
+Add this configuration with your App ID and Secret from Step 1:</div>
                         <div class="thread-code">
-                            <pre><code>{
-  <span class="code-string">"mcpServers"</span>: {
-    <span class="code-string">"threads"</span>: {
-      <span class="code-string">"command"</span>: <span class="code-string">"npx"</span>,
-      <span class="code-string">"args"</span>: [<span class="code-string">"-y"</span>, <span class="code-string">"@pegasusheavy/threads-mcp"</span>],
-      <span class="code-string">"env"</span>: {
-        <span class="code-string">"THREADS_ACCESS_TOKEN"</span>: <span class="code-string">"your_access_token_here"</span>,
-        <span class="code-string">"THREADS_USER_ID"</span>: <span class="code-string">"your_user_id_here"</span>
-      }
-    }
-  }
-}</code></pre>
+                            <pre><code><span class="code-punctuation">{</span>
+  <span class="code-string">"mcpServers"</span><span class="code-punctuation">:</span> <span class="code-punctuation">{</span>
+    <span class="code-string">"threads"</span><span class="code-punctuation">:</span> <span class="code-punctuation">{</span>
+      <span class="code-string">"command"</span><span class="code-punctuation">:</span> <span class="code-string">"npx"</span><span class="code-punctuation">,</span>
+      <span class="code-string">"args"</span><span class="code-punctuation">:</span> <span class="code-punctuation">[</span><span class="code-string">"-y"</span><span class="code-punctuation">,</span> <span class="code-string">"@pegasusheavy/threads-mcp"</span><span class="code-punctuation">]</span><span class="code-punctuation">,</span>
+      <span class="code-string">"env"</span><span class="code-punctuation">:</span> <span class="code-punctuation">{</span>
+        <span class="code-string">"THREADS_APP_ID"</span><span class="code-punctuation">:</span> <span class="code-string">"your-app-id-here"</span><span class="code-punctuation">,</span>
+        <span class="code-string">"THREADS_APP_SECRET"</span><span class="code-punctuation">:</span> <span class="code-string">"your-app-secret-here"</span>
+      <span class="code-punctuation">}</span>
+    <span class="code-punctuation">}</span>
+  <span class="code-punctuation">}</span>
+<span class="code-punctuation">}</span></code></pre>
                         </div>
-                        <div class="thread-content"><strong>Step 4: Restart Claude Desktop</strong>
-Quit Claude Desktop completely and reopen it.
+                        <div class="thread-content"><strong>Step 3: Start Claude Desktop</strong>
+When you restart Claude Desktop:
+• A browser window will automatically open
+• Log in with your Threads account
+• Click "Allow" to authorize the app
+• You'll see a success page - close it
+• Done! The server stores tokens automatically 🎉
 
-<strong>Step 5: Verify Installation</strong>
-Look for the 🔌 icon in Claude to confirm the MCP server is connected.
+<strong>✨ Automatic Features:</strong>
+• OAuth flow handled automatically on first run
+• Tokens stored securely in your home directory
+• Automatic token refresh before expiry (60 days)
+• Reuses existing tokens on future starts
+
+<strong>Need Help?</strong> 
+📖 <a href="https://github.com/pegasusheavy/threads-mcp/blob/main/docs/OAUTH_SETUP.md" class="thread-link" target="_blank" rel="noopener noreferrer">Full OAuth Setup Guide</a>
 
 That's it! Start chatting with Claude about your Threads! 🎉</div>
                         <a href="https://github.com/pegasusheavy/threads-mcp" class="thread-cta" target="_blank" rel="noopener">

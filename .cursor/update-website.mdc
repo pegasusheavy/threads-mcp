@@ -1,3 +1,7 @@
+---
+alwaysApply: true
+---
+
 After completing any significant feature, update, or change to the project, update the relevant documentation on the GitHub Pages website (docs/ directory) to reflect the changes. This includes:
 
 - Updating the main timeline (index.html) with new feature announcements as thread posts

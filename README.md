@@ -46,16 +46,31 @@ Before you begin, you'll need:
 
 1. **Node.js 18+** - [Download here](https://nodejs.org/)
 2. **pnpm** - Install with `npm install -g pnpm`
-3. **Threads API Access Token** - Get from [Meta for Developers](https://developers.facebook.com/docs/threads)
-4. **Threads User ID** - Your Threads user account ID
+3. **Meta Developer Account** - [Sign up here](https://developers.facebook.com/)
+4. **Threads Account** - Your personal Threads account
+5. **OAuth 2.0 Credentials** - See [OAuth Setup Guide](docs/OAUTH_SETUP.md)
 
 ### Getting Your Threads API Credentials
 
-1. Visit [Meta for Developers](https://developers.facebook.com/)
-2. Create or select an app
-3. Add the Threads API to your app
-4. Generate an access token with required permissions
-5. Note your User ID from your Threads profile
+**⚠️ Important**: Threads uses OAuth 2.0 authentication. You cannot use simple API keys.
+
+#### Quick Setup (Automatic OAuth)
+
+1. **Create a Meta App**
+   - Visit [Meta for Developers](https://developers.facebook.com/)
+   - Create a new app and add the Threads API product
+   - Add OAuth redirect URI: `http://localhost:48810/callback`
+   - Get your **App ID** and **App Secret**
+
+2. **Configure Claude Desktop**
+   - Add to your Claude Desktop config with just your App ID and Secret
+   - The server will automatically handle OAuth on first run
+   - A browser will open for you to authorize the app
+   - Tokens are stored and automatically refreshed!
+
+That's it! No manual OAuth flow needed. 🎉
+
+📖 **For detailed instructions**, see the [OAuth Setup Guide](docs/OAUTH_SETUP.md)
 
 ## Installation
 
@@ -81,20 +96,57 @@ pnpm run build
 
 ## Configuration
 
-Set your Threads API credentials as environment variables:
+### Automatic OAuth (Recommended)
 
-```bash
-export THREADS_ACCESS_TOKEN="your-access-token-here"
-export THREADS_USER_ID="your-user-id-here"
+The simplest way is to let the server handle OAuth automatically:
+
+**For Claude Desktop**, edit your config file:
+
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+- **Linux**: `~/.config/Claude/claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "threads": {
+      "command": "npx",
+      "args": ["-y", "@pegasusheavy/threads-mcp"],
+      "env": {
+        "THREADS_APP_ID": "your-app-id",
+        "THREADS_APP_SECRET": "your-app-secret"
+      }
+    }
+  }
+}
 ```
 
-For persistent configuration, add these to your `~/.bashrc`, `~/.zshrc`, or equivalent:
+When you start Claude Desktop:
 
-```bash
-echo 'export THREADS_ACCESS_TOKEN="your-access-token-here"' >> ~/.bashrc
-echo 'export THREADS_USER_ID="your-user-id-here"' >> ~/.bashrc
-source ~/.bashrc
+1. A browser will automatically open
+2. Log in and authorize the app
+3. Done! Tokens are stored and auto-refreshed
+
+### Manual Token (Legacy)
+
+If you prefer to use pre-generated tokens:
+
+```json
+{
+  "mcpServers": {
+    "threads": {
+      "command": "npx",
+      "args": ["-y", "@pegasusheavy/threads-mcp"],
+      "env": {
+        "THREADS_ACCESS_TOKEN": "your-long-lived-token",
+        "THREADS_USER_ID": "your-user-id"
+      }
+    }
+  }
+}
 ```
+
+See [OAuth Setup Guide](docs/OAUTH_SETUP.md) for manual OAuth flow instructions.
 
 ## Usage
 

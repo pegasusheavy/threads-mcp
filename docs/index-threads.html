@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threads MCP Server - Model Context Protocol for Threads.com API | TypeScript SDK</title>
+    <meta name="title" content="Threads MCP Server - Model Context Protocol for Threads.com API">
+    <meta name="description" content="Production-ready Model Context Protocol server for Threads.com API. Features rate limiting, caching, webhooks, and full TypeScript support. Integrate Threads with Claude, ChatGPT, and AI assistants. 90%+ test coverage, MIT licensed.">
+    <meta name="keywords" content="threads, threads.com, mcp server, model context protocol, threads api, threads sdk, typescript, claude, chatgpt, ai integration, api client, rate limiting, webhooks, caching, threads automation, threads bot">
+    <meta name="author" content="Pegasus Heavy Industries LLC">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <link rel="canonical" href="https://pegasusheavyindustries.github.io/threads-mcp/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pegasusheavyindustries.github.io/threads-mcp/">
+    <meta property="og:title" content="Threads MCP Server - Model Context Protocol for Threads.com API">
+    <meta property="og:description" content="Production-ready MCP server for Threads.com. Integrate Threads with Claude, ChatGPT, and AI assistants. Features rate limiting, caching, webhooks, and full TypeScript support.">
+    <meta property="og:image" content="https://pegasusheavyindustries.github.io/threads-mcp/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Threads MCP Server">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://pegasusheavyindustries.github.io/threads-mcp/">
+    <meta name="twitter:title" content="Threads MCP Server - Model Context Protocol for Threads.com API">
+    <meta name="twitter:description" content="Production-ready MCP server for Threads.com. Integrate Threads with Claude, ChatGPT, and AI assistants. Features rate limiting, caching, webhooks.">
+    <meta name="twitter:image" content="https://pegasusheavyindustries.github.io/threads-mcp/twitter-card.png">
+    <meta name="twitter:creator" content="@PegasusHeavyInd">
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#000000">
+    <meta name="color-scheme" content="light dark">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- AI & LLM Specific Meta Tags -->
+    <meta name="ai-content-declaration" content="This is human-created documentation for an open-source software project">
+    <meta name="schema:type" content="SoftwareApplication">
+    <meta name="schema:applicationCategory" content="DeveloperApplication">
+    <meta name="schema:operatingSystem" content="Linux, macOS, Windows">
+    <meta name="schema:programmingLanguage" content="TypeScript">
+    <meta name="schema:offers" content="Free, Open Source, MIT License">
+
+    <!-- GitHub & Repository Info -->
+    <meta name="github:repo" content="PegasusHeavyIndustries/threads-mcp">
+
+    <!-- Structured Data for AI -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Threads MCP Server",
+      "alternateName": "threads-mcp",
+      "description": "Production-ready Model Context Protocol server for Threads.com API with rate limiting, caching, webhooks, and full TypeScript support",
+      "url": "https://pegasusheavyindustries.github.io/threads-mcp/",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Linux, macOS, Windows",
+      "programmingLanguage": {
+        "@type": "ComputerLanguage",
+        "name": "TypeScript"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0"
+      },
+      "license": "https://opensource.org/licenses/MIT",
+      "featureList": [
+        "Complete Threads.com API Integration",
+        "Rate Limiting with Token Bucket Algorithm",
+        "In-Memory Caching with TTL and LRU",
+        "Webhook Support with Signature Verification",
+        "90%+ Test Coverage"
+      ]
+    }
+    </script>
+
+    <!-- FAQ Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Threads MCP Server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Threads MCP Server is a production-ready Model Context Protocol server that enables AI assistants like Claude and ChatGPT to interact with the Threads.com API. It includes rate limiting, caching, webhooks, and full TypeScript support with 90%+ test coverage."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I install Threads MCP Server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Install via npm: npm install threads-mcp. Configure with your Threads API credentials (THREADS_ACCESS_TOKEN and THREADS_USER_ID). Add to Claude Desktop config or use programmatically."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Threads MCP Server free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Threads MCP Server is completely free and open source under the MIT License."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Threads Timeline CSS -->
+    <link rel="stylesheet" href="threads-timeline.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="sitemap" type="application/xml" href="sitemap.xml">
+</head>
+<body itemscope itemtype="https://schema.org/WebPage">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Threads App Container -->
+    <div class="threads-app">
+        <!-- Threads Header -->
+        <header class="threads-header" role="banner">
+            <div class="threads-header-inner">
+                <div class="threads-logo">
+                    <svg viewBox="0 0 192 192" fill="currentColor">
+                        <path d="M141.537 88.9883C140.71 88.5919 139.87 88.2104 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4484 44.7443 97.3355 44.7443 97.222 44.7443C82.2364 44.7443 69.7731 51.1409 62.102 62.7807L75.881 72.2328C81.6116 63.5383 90.6052 61.6848 97.2286 61.6848C97.3051 61.6848 97.3819 61.6848 97.4576 61.6855C105.707 61.7381 111.932 64.1366 115.961 68.814C118.893 72.2193 120.854 76.925 121.825 82.8638C114.511 81.6207 106.601 81.2385 98.145 81.7233C74.3247 83.0954 59.0111 96.9879 60.0396 116.292C60.5615 126.084 65.4397 134.508 73.775 139.966C80.8224 144.607 89.899 146.978 99.3323 146.423C111.79 145.74 121.563 140.987 128.381 132.296C133.559 125.696 136.834 117.143 138.28 106.366C144.217 109.949 148.617 114.664 151.047 120.332C155.179 129.967 155.42 145.8 142.501 158.708C131.182 170.016 117.576 174.908 97.0135 175.059C74.2042 174.89 56.9538 167.575 45.7381 153.317C35.2355 139.966 29.8077 120.682 29.6052 96C29.8077 71.3178 35.2355 52.0336 45.7381 38.6827C56.9538 24.4249 74.2039 17.11 97.0132 16.9405C119.988 17.1113 137.539 24.4614 149.184 38.788C154.894 45.8136 159.199 54.6488 162.037 64.9503L178.184 60.6422C174.744 47.9622 169.331 37.0357 161.965 27.974C147.036 9.60668 125.202 0.195148 97.0695 0H96.9569C68.8816 0.19447 47.2921 9.6418 32.7883 28.0793C19.8819 44.4864 13.2244 67.3157 13.0007 95.9325L13 96L13.0007 96.0675C13.2244 124.684 19.8819 147.514 32.7883 163.921C47.2921 182.358 68.8816 191.806 96.9569 192H97.0695C122.03 191.827 139.624 185.292 154.118 170.811C173.081 151.866 172.51 128.119 166.26 113.541C161.776 103.087 153.227 94.5962 141.537 88.9883ZM98.4405 129.507C88.0005 130.095 77.1544 125.409 76.6196 115.372C76.2232 107.93 81.9158 99.626 99.0812 98.6368C101.047 98.5234 102.976 98.468 104.871 98.468C111.106 98.468 116.939 99.0737 122.242 100.233C120.264 124.935 108.662 128.946 98.4405 129.507Z"/>
+                    </svg>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Timeline -->
+        <main id="main-content" role="main">
+            <!-- Hero Thread -->
+            <article class="thread">
+                <div class="thread-header">
+                    <div class="thread-avatar">PHI</div>
+                    <div class="thread-main">
+                        <div class="thread-user">
+                            <span class="thread-username">Pegasus Heavy Industries</span>
+                            <svg class="thread-verified" viewBox="0 0 22 22" fill="currentColor">
+                                <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"></path>
+                            </svg>
+                            <span class="thread-time">1h</span>
+                        </div>
+                        <div class="thread-content">🚀 Threads MCP Server is here!
+
+A production-ready Model Context Protocol server for Threads.com API. Built for Claude Desktop and AI assistants.</div>
+                        <div class="thread-badges">
+                            <span class="thread-badge primary">Open Source</span>
+                            <span class="thread-badge">TypeScript</span>
+                            <span class="thread-badge">90% Coverage</span>
+                            <span class="thread-badge">MIT License</span>
+                        </div>
+                        <div class="thread-actions">
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                                <span>324</span>
+                            </button>
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                </svg>
+                                <span>89</span>
+                            </button>
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polyline points="17 1 21 5 17 9"></polyline>
+                                    <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                                </svg>
+                                <span>45</span>
+                            </button>
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                                    <polyline points="16 6 12 2 8 6"></polyline>
+                                    <line x1="12" y1="2" x2="12" y2="15"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Features Thread -->
+            <article class="thread">
+                <div class="thread-header">
+                    <div class="thread-avatar">PHI</div>
+                    <div class="thread-main">
+                        <div class="thread-user">
+                            <span class="thread-username">Pegasus Heavy Industries</span>
+                            <svg class="thread-verified" viewBox="0 0 22 22" fill="currentColor">
+                                <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"></path>
+                            </svg>
+                            <span class="thread-time">45m</span>
+                        </div>
+                        <div class="thread-content">✨ Powerful features out of the box:</div>
+                        <div class="thread-features">
+                            <div class="thread-feature">
+                                <div class="thread-feature-icon">⚡</div>
+                                <div class="thread-feature-title">Rate Limiting</div>
+                                <div class="thread-feature-desc">Token bucket algorithm</div>
+                            </div>
+                            <div class="thread-feature">
+                                <div class="thread-feature-icon">💾</div>
+                                <div class="thread-feature-title">Caching</div>
+                                <div class="thread-feature-desc">TTL + LRU eviction</div>
+                            </div>
+                            <div class="thread-feature">
+                                <div class="thread-feature-icon">🔔</div>
+                                <div class="thread-feature-title">Webhooks</div>
+                                <div class="thread-feature-desc">Event notifications</div>
+                            </div>
+                            <div class="thread-feature">
+                                <div class="thread-feature-icon">🔒</div>
+                                <div class="thread-feature-title">Type Safe</div>
+                                <div class="thread-feature-desc">Full TypeScript</div>
+                            </div>
+                        </div>
+                        <div class="thread-actions">
+                            <button class="thread-action liked">
+                                <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                                <span>512</span>
+                            </button>
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                </svg>
+                                <span>134</span>
+                            </button>
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polyline points="17 1 21 5 17 9"></polyline>
+                                    <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                                </svg>
+                                <span>67</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Installation Thread -->
+            <article class="thread">
+                <div class="thread-header">
+                    <div class="thread-avatar">PHI</div>
+                    <div class="thread-main">
+                        <div class="thread-user">
+                            <span class="thread-username">Pegasus Heavy Industries</span>
+                            <svg class="thread-verified" viewBox="0 0 22 22" fill="currentColor">
+                                <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"></path>
+                            </svg>
+                            <span class="thread-time">30m</span>
+                        </div>
+                        <div class="thread-content">💻 Quick start in 3 steps:
+
+1️⃣ Install the package
+2️⃣ Set your API credentials
+3️⃣ Add to Claude Desktop config
+
+That's it! Start using Threads in Claude immediately.</div>
+                        <div class="thread-code">
+                            <pre><code><span class="code-comment"># Install via npm</span>
+<span class="code-keyword">npm</span> install threads-mcp
+
+<span class="code-comment"># Or use pnpm</span>
+<span class="code-keyword">pnpm</span> add threads-mcp</code></pre>
+                        </div>
+                        <a href="https://github.com/PegasusHeavyIndustries/threads-mcp" class="thread-cta" target="_blank" rel="noopener">
+                            View on GitHub →
+                        </a>
+                        <a href="https://github.com/PegasusHeavyIndustries/threads-mcp#installation" class="thread-cta secondary">
+                            Read Docs
+                        </a>
+                        <div class="thread-actions">
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                                <span>891</span>
+                            </button>
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                </svg>
+                                <span>203</span>
+                            </button>
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polyline points="17 1 21 5 17 9"></polyline>
+                                    <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                                </svg>
+                                <span>156</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Example Prompts Thread -->
+            <article class="thread">
+                <div class="thread-header">
+                    <div class="thread-avatar">PHI</div>
+                    <div class="thread-main">
+                        <div class="thread-user">
+                            <span class="thread-username">Pegasus Heavy Industries</span>
+                            <svg class="thread-verified" viewBox="0 0 22 22" fill="currentColor">
+                                <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"></path>
+                            </svg>
+                            <span class="thread-time">15m</span>
+                        </div>
+                        <div class="thread-content">🎯 Try these prompts with Claude:
+
+• "Show me my Threads profile"
+• "Post a thread saying 'Hello! 👋'"
+• "Get analytics for my recent thread"
+• "Show my last 10 threads"
+• "Reply to thread xyz with 'Great!'"
+
+The AI handles everything automatically! 🤖✨</div>
+                        <div class="thread-actions">
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                                <span>678</span>
+                            </button>
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                </svg>
+                                <span>145</span>
+                            </button>
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polyline points="17 1 21 5 17 9"></polyline>
+                                    <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                                </svg>
+                                <span>89</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- MCP Tools Thread -->
+            <article class="thread">
+                <div class="thread-header">
+                    <div class="thread-avatar">PHI</div>
+                    <div class="thread-main">
+                        <div class="thread-user">
+                            <span class="thread-username">Pegasus Heavy Industries</span>
+                            <svg class="thread-verified" viewBox="0 0 22 22" fill="currentColor">
+                                <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"></path>
+                            </svg>
+                            <span class="thread-time">5m</span>
+                        </div>
+                        <div class="thread-content">🛠 8 powerful MCP tools included:
+
+threads_get_profile
+threads_get_threads
+threads_get_thread
+threads_create_thread
+threads_reply_to_thread
+threads_get_insights
+threads_get_replies
+threads_get_conversation
+
+Full Threads.com API at your fingertips! 💪</div>
+                        <div class="thread-actions">
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                                <span>445</span>
+                            </button>
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                </svg>
+                                <span>98</span>
+                            </button>
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polyline points="17 1 21 5 17 9"></polyline>
+                                    <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                                </svg>
+                                <span>56</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- License Thread -->
+            <article class="thread">
+                <div class="thread-header">
+                    <div class="thread-avatar">PHI</div>
+                    <div class="thread-main">
+                        <div class="thread-user">
+                            <span class="thread-username">Pegasus Heavy Industries</span>
+                            <svg class="thread-verified" viewBox="0 0 22 22" fill="currentColor">
+                                <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"></path>
+                            </svg>
+                            <span class="thread-time">Just now</span>
+                        </div>
+                        <div class="thread-content">📜 MIT Licensed & Open Source
+
+Free to use, modify, and distribute. Built by developers, for developers.
+
+Star us on GitHub! ⭐
+
+<a href="https://github.com/PegasusHeavyIndustries/threads-mcp" class="thread-link">github.com/PegasusHeavyIndustries/threads-mcp</a></div>
+                        <div class="thread-actions">
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                                <span>1.2K</span>
+                            </button>
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                </svg>
+                                <span>234</span>
+                            </button>
+                            <button class="thread-action">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polyline points="17 1 21 5 17 9"></polyline>
+                                    <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                                </svg>
+                                <span>445</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </main>
+
+        <!-- Footer -->
+        <footer class="threads-footer" role="contentinfo">
+            <div>
+                <a href="https://github.com/PegasusHeavyIndustries/threads-mcp">GitHub</a>
+                <a href="https://github.com/PegasusHeavyIndustries/threads-mcp/blob/main/README.md">Docs</a>
+                <a href="https://github.com/PegasusHeavyIndustries/threads-mcp/blob/main/LICENSE">License</a>
+            </div>
+            <div style="margin-top: 16px;">
+                © 2025 Pegasus Heavy Industries LLC · MIT License
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
+

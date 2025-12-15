@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run lint-staged to check and fix files
+echo "🔍 Running lint-staged..."
+pnpm exec lint-staged
+
+# Run type checking
+echo "🔍 Running TypeScript type checking..."
+pnpm exec tsc --noEmit || {
+  echo "❌ Type checking failed. Please fix the errors before committing."
+  exit 1
+}
+
+echo "✅ Pre-commit checks passed!"

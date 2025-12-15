@@ -1,0 +1,34 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🧪 Running tests before push..."
+
+# Run all tests
+pnpm test || {
+  echo "❌ Tests failed. Please fix the failing tests before pushing."
+  exit 1
+}
+
+# Run coverage check
+echo "📊 Checking test coverage..."
+pnpm run test:coverage || {
+  echo "❌ Coverage check failed. Please ensure adequate test coverage."
+  exit 1
+}
+
+# Run linting
+echo "🔍 Running linter..."
+pnpm run lint || {
+  echo "❌ Linting failed. Please fix the linting errors before pushing."
+  exit 1
+}
+
+# Build check
+echo "🏗️  Verifying build..."
+pnpm run build || {
+  echo "❌ Build failed. Please fix the build errors before pushing."
+  exit 1
+}
+
+echo "✅ All pre-push checks passed!"
+

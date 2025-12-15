@@ -291,7 +291,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+3. Commit your changes (`git commit -m 'feat: add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
@@ -300,7 +300,17 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - Write tests for new features (maintain >90% coverage)
 - Follow the existing code style
 - Update documentation as needed
-- Use conventional commits
+- Use conventional commits (enforced by Git hooks)
+
+### Git Hooks
+
+This project uses Husky to enforce code quality:
+
+- **pre-commit**: Runs linting, formatting, and type checking
+- **pre-push**: Runs full test suite, coverage check, and build verification
+- **commit-msg**: Validates commit message format (conventional commits)
+
+See [docs/GIT_HOOKS.md](docs/GIT_HOOKS.md) for detailed information about Git hooks.
 
 ## License
 
@@ -324,4 +334,3 @@ Copyright (c) 2025 Pegasus Heavy Industries LLC
 ---
 
 Made with ❤️ by Pegasus Heavy Industries LLC
-

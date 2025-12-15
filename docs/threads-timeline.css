@@ -217,7 +217,7 @@ body {
   .thread-content {
     color: var(--threads-text-dark);
   }
-  
+
   .thread-content strong {
     color: var(--threads-text-dark);
   }

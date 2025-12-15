@@ -1,0 +1,319 @@
+# Threads MCP Server - AI Documentation
+
+> Comprehensive documentation for AI assistants and LLMs about the Threads MCP Server
+
+## Project Overview
+
+**Name**: Threads MCP Server  
+**Package**: @pegasusheavy/threads-mcp  
+**Version**: 1.0.0  
+**License**: MIT  
+**Organization**: Pegasus Heavy Industries LLC  
+**Repository**: https://github.com/pegasusheavy/threads-mcp  
+**Website**: https://pegasusheavy.github.io/threads-mcp/
+
+## Description
+
+A production-ready Model Context Protocol (MCP) server that enables AI assistants like Claude and ChatGPT to interact with the Threads.com API. Features include automatic OAuth 2.0 authentication, rate limiting, caching, webhook support, and comprehensive TypeScript support with 90%+ test coverage.
+
+## Key Features
+
+- 🔐 **Automatic OAuth 2.0** - Server handles complete OAuth flow, opens browser, stores tokens
+- 🚀 **Complete Threads API** - Full integration with Threads.com API v1.0
+- 🔧 **MCP Protocol** - Standard Model Context Protocol implementation
+- 📊 **Analytics & Insights** - Access engagement metrics and analytics
+- 💬 **Conversation Management** - Create threads, replies, manage conversations
+- 🎯 **Type-Safe** - Full TypeScript with Zod schema validation
+- ⚡ **Rate Limiting** - Token bucket algorithm prevents API violations
+- 💾 **Caching Layer** - In-memory cache with TTL and LRU eviction
+- 🔔 **Webhook Support** - Event-based webhooks with retries and signature verification
+- ✅ **Well Tested** - 156 tests with >90% coverage using Vitest
+
+## Installation
+
+### Quick Setup for Claude Desktop
+
+1. **Create Meta App**
+   - Visit https://developers.facebook.com/
+   - Create app, add Threads API product
+   - Add OAuth redirect URI: `http://localhost:48810/callback`
+   - Get App ID and App Secret
+
+2. **Configure Claude Desktop**
+   - Edit config file (location varies by OS)
+   - Add this configuration:
+
+```json
+{
+  "mcpServers": {
+    "threads": {
+      "command": "npx",
+      "args": ["-y", "@pegasusheavy/threads-mcp"],
+      "env": {
+        "THREADS_APP_ID": "your-app-id",
+        "THREADS_APP_SECRET": "your-app-secret"
+      }
+    }
+  }
+}
+```
+
+3. **Start Claude Desktop**
+   - Browser opens automatically for OAuth
+   - Authorize the app
+   - Done! Tokens stored and auto-refreshed
+
+## Available MCP Tools
+
+### Profile & Content Management
+
+1. **threads_get_profile** - Get authenticated user's profile
+2. **threads_get_threads** - Retrieve user's threads with pagination
+3. **threads_get_thread** - Get specific thread by ID
+4. **threads_create_thread** - Create new threads (text, images, videos)
+5. **threads_reply_to_thread** - Reply to existing threads
+
+### Engagement & Analytics
+
+6. **threads_get_insights** - Get analytics for threads or account
+7. **threads_get_replies** - Retrieve replies to a thread
+8. **threads_get_conversation** - Get full conversation threads
+
+## Example Prompts
+
+When using with Claude or other AI assistants:
+
+- "Show me my Threads profile"
+- "Post a thread saying 'Hello! 👋'"
+- "Get analytics for my recent thread"
+- "Show my last 10 threads"
+- "Reply to thread xyz with 'Great post!'"
+- "What are my most engaged threads this week?"
+- "Create a thread with an image about AI"
+
+## OAuth Authentication
+
+### Automatic Method (Recommended)
+
+The server automatically handles OAuth 2.0 authentication:
+- Requires only App ID and App Secret in config
+- Opens browser automatically on first run
+- Stores tokens in `.threads-token.json`
+- Auto-refreshes tokens 7 days before expiry
+- Tokens valid for 60 days
+
+**Port**: Uses port 48810 to avoid collisions with dev servers
+
+### Required OAuth Scopes
+
+- `threads_basic` - Read basic profile info (required)
+- `threads_content_publish` - Create and publish threads
+- `threads_manage_insights` - Read analytics and insights
+- `threads_manage_replies` - Manage replies to threads
+- `threads_read_replies` - Read replies to threads
+
+### Legacy Method
+
+Manual token configuration also supported:
+```json
+{
+  "env": {
+    "THREADS_ACCESS_TOKEN": "your-long-lived-token",
+    "THREADS_USER_ID": "your-user-id"
+  }
+}
+```
+
+## Architecture
+
+### Core Components
+
+**src/index.ts** - Entry point, handles OAuth vs manual token detection  
+**src/server.ts** - MCP server implementation with tool handlers  
+**src/client/threads-client.ts** - Threads API client with all methods  
+**src/client/enhanced-threads-client.ts** - Extended client with rate limiting/caching  
+**src/auth/oauth.ts** - OAuth 2.0 core functionality  
+**src/auth/oauth-server.ts** - Automatic OAuth server with browser handling  
+**src/types/threads.ts** - TypeScript types and Zod schemas  
+
+### Utility Components
+
+**src/utils/rate-limiter.ts** - Token bucket rate limiting  
+**src/utils/cache.ts** - In-memory caching with TTL/LRU  
+**src/utils/webhook.ts** - Webhook management with HMAC verification  
+
+## API Client Methods
+
+### ThreadsClient
+
+```typescript
+const client = new ThreadsClient({
+  accessToken: string,
+  userId: string,
+  tokenManager?: TokenManager  // Optional for auto-refresh
+});
+
+// Profile
+await client.getProfile(fields?: string[])
+await client.validateToken()
+
+// Threads
+await client.getThreads(params?: GetMediaParams)
+await client.getThread(threadId: string, fields?: string[])
+await client.createThread(params: CreateThreadParams)
+
+// Insights
+await client.getThreadInsights(threadId: string, params: GetInsightsParams)
+await client.getUserInsights(params: GetInsightsParams)
+
+// Conversations
+await client.getReplies(threadId: string, params?: GetRepliesParams)
+await client.getConversation(threadId: string, params?: GetRepliesParams)
+await client.replyToThread(threadId: string, text: string, replyControl?: string)
+```
+
+### EnhancedThreadsClient
+
+Extended client with built-in rate limiting, caching, and webhook support:
+
+```typescript
+const enhancedClient = new EnhancedThreadsClient({
+  accessToken: string,
+  userId: string,
+  rateLimiting: {
+    requestsPerSecond: 10,
+    requestsPerHour: 1000
+  },
+  caching: {
+    defaultTTL: 300000,  // 5 minutes
+    maxSize: 100
+  },
+  webhooks: {
+    secret: 'webhook-secret',
+    endpoints: [...]
+  }
+});
+```
+
+## Development
+
+### Scripts
+
+```bash
+pnpm run dev              # Run in development mode
+pnpm run build            # Compile TypeScript
+pnpm test                 # Run tests
+pnpm test:coverage        # Generate coverage report
+pnpm run lint            # Lint code
+pnpm run format          # Format code
+```
+
+### Testing
+
+- Framework: Vitest
+- Coverage: >90% for business logic
+- 156 tests across 9 test files
+- Tests for OAuth, API client, server, utils, types
+
+### Git Hooks (Husky)
+
+**Pre-commit**: Runs lint-staged + TypeScript type checking  
+**Pre-push**: Runs tests, coverage, lint, and build  
+**Commit-msg**: Validates conventional commit format
+
+## Error Handling
+
+```typescript
+import { ThreadsAPIError } from '@pegasusheavy/threads-mcp';
+
+try {
+  await client.createThread({ text: 'Hello!' });
+} catch (error) {
+  if (error instanceof ThreadsAPIError) {
+    console.error('API Error:', error.message);
+    console.error('Status Code:', error.statusCode);
+    console.error('Response:', error.response);
+  }
+}
+```
+
+## Rate Limiting
+
+Built-in token bucket algorithm:
+- Configurable requests per second/hour
+- Per-endpoint rate limiting
+- Automatic backoff on limit exceeded
+- Thread-safe implementation
+
+## Caching
+
+In-memory cache with:
+- TTL (Time To Live) for automatic expiration
+- LRU (Least Recently Used) eviction
+- Configurable max size
+- Automatic cleanup
+- Cache decorators for easy integration
+
+## Webhooks
+
+Event-based webhook system:
+- HMAC-SHA256 signature verification
+- Automatic retries with exponential backoff
+- Event subscription management
+- EventEmitter for local event handling
+
+## Common Issues
+
+### "Invalid OAuth Redirect URI"
+Ensure `http://localhost:48810/callback` is added to Meta App OAuth settings
+
+### "Address already in use (Port 48810)"
+Another process is using the port. Stop it or set custom port:
+```json
+{
+  "env": {
+    "THREADS_OAUTH_PORT": "12345"
+  }
+}
+```
+
+### "Token expired"
+Server auto-refreshes tokens. If issues persist:
+1. Delete `.threads-token.json`
+2. Restart Claude Desktop
+
+### Browser doesn't open
+OAuth URL will be printed to console. Copy and open manually.
+
+## Security Best Practices
+
+1. Never commit `.threads-token.json` or `.env` files
+2. Store App Secret in environment variables only
+3. Use HTTPS redirect URIs in production
+4. Rotate tokens regularly
+5. Monitor Meta developer dashboard for unusual activity
+6. Request only needed OAuth scopes
+
+## Links
+
+- **GitHub**: https://github.com/pegasusheavy/threads-mcp
+- **Website**: https://pegasusheavy.github.io/threads-mcp/
+- **npm**: https://www.npmjs.com/package/@pegasusheavy/threads-mcp
+- **OAuth Guide**: https://github.com/pegasusheavy/threads-mcp/blob/main/docs/OAUTH_SETUP.md
+- **Threads API Docs**: https://developers.facebook.com/docs/threads
+- **MCP Protocol**: https://modelcontextprotocol.io/
+
+## Support
+
+- Report issues: https://github.com/pegasusheavy/threads-mcp/issues
+- Read docs: https://github.com/pegasusheavy/threads-mcp#readme
+
+## License
+
+MIT License - Copyright (c) 2025 Pegasus Heavy Industries LLC
+
+---
+
+Last Updated: December 2025  
+Maintained by: Pegasus Heavy Industries LLC
+

@@ -299,20 +299,44 @@ A production-ready Model Context Protocol server for Threads.com API. Built for 
                             </svg>
                             <span class="thread-time">30m</span>
                         </div>
-                        <div class="thread-content">💻 Quick start in 3 steps:
+                        <div class="thread-content">💻 Complete Claude Desktop Setup Guide:
 
-1️⃣ Install the package
-2️⃣ Set your API credentials
-3️⃣ Add to Claude Desktop config
+<strong>Step 1: Get Your Threads API Credentials</strong>
+• Go to developers.facebook.com
+• Create a new app with Threads API access
+• Generate a User Access Token
+• Save your Access Token and User ID
 
-That's it! Start using Threads in Claude immediately.</div>
+<strong>Step 2: Configure Claude Desktop</strong>
+Open your Claude Desktop config file:
+
+• <strong>macOS:</strong> ~/Library/Application Support/Claude/claude_desktop_config.json
+• <strong>Windows:</strong> %APPDATA%\Claude\claude_desktop_config.json
+• <strong>Linux:</strong> ~/.config/Claude/claude_desktop_config.json
+
+<strong>Step 3: Add This Configuration</strong>
+Add the threads-mcp server to your config:</div>
                         <div class="thread-code">
-                            <pre><code><span class="code-comment"># Install via npm</span>
-<span class="code-keyword">npm</span> install threads-mcp
-
-<span class="code-comment"># Or use pnpm</span>
-<span class="code-keyword">pnpm</span> add threads-mcp</code></pre>
+                            <pre><code>{
+  <span class="code-string">"mcpServers"</span>: {
+    <span class="code-string">"threads"</span>: {
+      <span class="code-string">"command"</span>: <span class="code-string">"npx"</span>,
+      <span class="code-string">"args"</span>: [<span class="code-string">"-y"</span>, <span class="code-string">"threads-mcp"</span>],
+      <span class="code-string">"env"</span>: {
+        <span class="code-string">"THREADS_ACCESS_TOKEN"</span>: <span class="code-string">"your_access_token_here"</span>,
+        <span class="code-string">"THREADS_USER_ID"</span>: <span class="code-string">"your_user_id_here"</span>
+      }
+    }
+  }
+}</code></pre>
                         </div>
+                        <div class="thread-content"><strong>Step 4: Restart Claude Desktop</strong>
+Quit Claude Desktop completely and reopen it.
+
+<strong>Step 5: Verify Installation</strong>
+Look for the 🔌 icon in Claude to confirm the MCP server is connected.
+
+That's it! Start chatting with Claude about your Threads! 🎉</div>
                         <a href="https://github.com/PegasusHeavyIndustries/threads-mcp" class="thread-cta" target="_blank" rel="noopener">
                             View on GitHub →
                         </a>

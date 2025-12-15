@@ -6,60 +6,66 @@
     <title>Changelog - Threads MCP Server</title>
     <meta name="description" content="Version history and changelog for Threads MCP Server">
     <link rel="canonical" href="https://pegasusheavy.github.io/threads-mcp/changelog.html">
-    <link rel="stylesheet" href="threads-timeline.css">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" href="favicon.ico">
+    
+    <link rel="stylesheet" href="threads-timeline.css">
+
     <style>
         .changelog-container {
             max-width: 800px;
             margin: 0 auto;
             padding: 40px 16px;
         }
-        
+
         .changelog-header {
             text-align: center;
             margin-bottom: 60px;
         }
-        
+
         .changelog-title {
             font-size: 48px;
             font-weight: 700;
             color: var(--threads-text);
             margin-bottom: 12px;
         }
-        
+
         .changelog-subtitle {
             font-size: 18px;
             color: var(--threads-secondary);
         }
-        
+
         .version-section {
             margin-bottom: 48px;
             border-bottom: 1px solid var(--threads-border);
             padding-bottom: 32px;
         }
-        
+
         .version-section:last-child {
             border-bottom: none;
         }
-        
+
         .version-header {
             display: flex;
             align-items: baseline;
             gap: 16px;
             margin-bottom: 16px;
         }
-        
+
         .version-number {
             font-size: 32px;
             font-weight: 700;
             color: var(--threads-text);
         }
-        
+
         .version-date {
             font-size: 16px;
             color: var(--threads-secondary);
         }
-        
+
         .version-badge {
             display: inline-block;
             padding: 4px 12px;
@@ -69,11 +75,11 @@
             font-size: 14px;
             font-weight: 600;
         }
-        
+
         .change-category {
             margin-bottom: 24px;
         }
-        
+
         .category-title {
             font-size: 18px;
             font-weight: 600;
@@ -83,31 +89,31 @@
             align-items: center;
             gap: 8px;
         }
-        
+
         .category-icon {
             font-size: 20px;
         }
-        
+
         .change-list {
             list-style: none;
             margin: 0;
             padding: 0;
         }
-        
+
         .change-item {
             padding: 8px 0 8px 32px;
             position: relative;
             color: var(--threads-text);
             line-height: 1.6;
         }
-        
+
         .change-item:before {
             content: "•";
             position: absolute;
             left: 12px;
             color: var(--threads-secondary);
         }
-        
+
         .back-link {
             display: inline-flex;
             align-items: center;
@@ -121,11 +127,11 @@
             margin-bottom: 40px;
             transition: opacity 0.1s;
         }
-        
+
         .back-link:hover {
             opacity: 0.8;
         }
-        
+
         @media (prefers-color-scheme: dark) {
             .version-section {
                 border-bottom-color: var(--threads-border-dark);

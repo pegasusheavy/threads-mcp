@@ -28,6 +28,9 @@
   ],
   "author": "Pegasus Heavy Industries LLC",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "packageManager": "pnpm@10.20.0",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.4",

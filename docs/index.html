@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Threads MCP Server - Model Context Protocol for Threads.com API | TypeScript SDK</title>
     <meta name="title" content="Threads MCP Server - Model Context Protocol for Threads.com API">
-    <meta name="description" content="Production-ready Model Context Protocol server for Threads.com API. Features rate limiting, caching, webhooks, and full TypeScript support. Integrate Threads with Claude, ChatGPT, and AI assistants. 90%+ test coverage, MIT licensed.">
-    <meta name="keywords" content="threads, threads.com, mcp server, model context protocol, threads api, threads sdk, typescript, claude, chatgpt, ai integration, api client, rate limiting, webhooks, caching, threads automation, threads bot">
+    <meta name="description" content="Production-ready Model Context Protocol server for Threads.com API with automatic OAuth 2.0. Features rate limiting, caching, webhooks, and full TypeScript support. Integrate Threads with Claude, ChatGPT, and AI assistants. 90%+ test coverage, MIT licensed.">
+    <meta name="keywords" content="threads, threads.com, mcp server, model context protocol, threads api, threads sdk, typescript, claude, chatgpt, ai integration, oauth 2.0, automatic oauth, api client, rate limiting, webhooks, caching, threads automation, threads bot">
     <meta name="author" content="Pegasus Heavy Industries LLC">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="language" content="English">
@@ -18,7 +18,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pegasusheavyindustries.github.io/threads-mcp/">
     <meta property="og:title" content="Threads MCP Server - Model Context Protocol for Threads.com API">
-    <meta property="og:description" content="Production-ready MCP server for Threads.com. Integrate Threads with Claude, ChatGPT, and AI assistants. Features rate limiting, caching, webhooks, and full TypeScript support.">
+    <meta property="og:description" content="Production-ready MCP server for Threads.com with automatic OAuth 2.0. Integrate Threads with Claude, ChatGPT, and AI assistants. Features rate limiting, caching, webhooks, and full TypeScript support.">
     <meta property="og:image" content="https://pegasusheavy.github.io/threads-mcp/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -29,7 +29,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://pegasusheavyindustries.github.io/threads-mcp/">
     <meta name="twitter:title" content="Threads MCP Server - Model Context Protocol for Threads.com API">
-    <meta name="twitter:description" content="Production-ready MCP server for Threads.com. Integrate Threads with Claude, ChatGPT, and AI assistants. Features rate limiting, caching, webhooks.">
+    <meta name="twitter:description" content="Production-ready MCP server for Threads.com with automatic OAuth 2.0. Integrate Threads with Claude, ChatGPT, and AI assistants. Features rate limiting, caching, webhooks.">
     <meta name="twitter:image" content="https://pegasusheavy.github.io/threads-mcp/twitter-card.png">
     <meta name="twitter:creator" content="@PegasusHeavyInd">
 
@@ -57,7 +57,7 @@
       "@type": "SoftwareApplication",
       "name": "Threads MCP Server",
       "alternateName": "@pegasusheavy/threads-mcp",
-      "description": "Production-ready Model Context Protocol server for Threads.com API with rate limiting, caching, webhooks, and full TypeScript support",
+      "description": "Production-ready Model Context Protocol server for Threads.com API with automatic OAuth 2.0, rate limiting, caching, webhooks, and full TypeScript support",
       "url": "https://pegasusheavyindustries.github.io/threads-mcp/",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Linux, macOS, Windows",
@@ -71,6 +71,7 @@
       },
       "license": "https://opensource.org/licenses/MIT",
       "featureList": [
+        "Automatic OAuth 2.0 Authentication",
         "Complete Threads.com API Integration",
         "Rate Limiting with Token Bucket Algorithm",
         "In-Memory Caching with TTL and LRU",
@@ -192,12 +193,12 @@
                         </div>
                         <div class="thread-content">🚀 Threads MCP Server is here!
 
-A production-ready Model Context Protocol server for Threads.com API. Built for Claude Desktop and AI assistants.</div>
+A production-ready Model Context Protocol server for Threads.com API with automatic OAuth 2.0. Built for Claude Desktop and AI assistants.</div>
                         <div class="thread-badges">
-                            <span class="thread-badge primary">Open Source</span>
+                            <span class="thread-badge primary">Automatic OAuth</span>
+                            <span class="thread-badge">Open Source</span>
                             <span class="thread-badge">TypeScript</span>
                             <span class="thread-badge">90% Coverage</span>
-                            <span class="thread-badge">MIT License</span>
                         </div>
                         <div class="thread-actions">
                             <button class="thread-action">
@@ -248,6 +249,11 @@ A production-ready Model Context Protocol server for Threads.com API. Built for 
                         <div class="thread-content">✨ Powerful features out of the box:</div>
                         <div class="thread-features">
                             <div class="thread-feature">
+                                <div class="thread-feature-icon">🔐</div>
+                                <div class="thread-feature-title">Auto OAuth 2.0</div>
+                                <div class="thread-feature-desc">Opens browser, stores tokens</div>
+                            </div>
+                            <div class="thread-feature">
                                 <div class="thread-feature-icon">⚡</div>
                                 <div class="thread-feature-title">Rate Limiting</div>
                                 <div class="thread-feature-desc">Token bucket algorithm</div>
@@ -261,11 +267,6 @@ A production-ready Model Context Protocol server for Threads.com API. Built for 
                                 <div class="thread-feature-icon">🔔</div>
                                 <div class="thread-feature-title">Webhooks</div>
                                 <div class="thread-feature-desc">Event notifications</div>
-                            </div>
-                            <div class="thread-feature">
-                                <div class="thread-feature-icon">🔒</div>
-                                <div class="thread-feature-title">Type Safe</div>
-                                <div class="thread-feature-desc">Full TypeScript</div>
                             </div>
                         </div>
                         <div class="thread-actions">

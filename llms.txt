@@ -1,0 +1,197 @@
+# Threads MCP Server
+
+> Production-ready Model Context Protocol server for Threads.com API
+
+## Overview
+
+Threads MCP Server enables AI assistants like Claude and ChatGPT to interact with the Threads.com API through the Model Context Protocol. Built with TypeScript, featuring rate limiting, caching, and webhooks.
+
+## Repository
+
+- GitHub: https://github.com/pegasusheavy/threads-mcp
+- Website: https://pegasusheavy.github.io/threads-mcp/
+- License: MIT (Pegasus Heavy Industries LLC)
+
+## Key Features
+
+- Complete Threads.com API integration
+- Rate limiting with token bucket algorithm
+- In-memory caching with TTL and LRU eviction
+- Webhook support with HMAC signature verification
+- Full TypeScript support with Zod validation
+- 90%+ test coverage with Vitest
+- Claude Desktop integration ready
+
+## Installation
+
+```bash
+npm install threads-mcp
+# or
+pnpm add threads-mcp
+```
+
+## Configuration
+
+Set environment variables:
+```bash
+THREADS_ACCESS_TOKEN="your-access-token"
+THREADS_USER_ID="your-user-id"
+```
+
+Add to Claude Desktop config (`claude_desktop_config.json`):
+```json
+{
+  "mcpServers": {
+    "threads": {
+      "command": "threads-mcp",
+      "env": {
+        "THREADS_ACCESS_TOKEN": "your-token",
+        "THREADS_USER_ID": "your-user-id"
+      }
+    }
+  }
+}
+```
+
+## Available MCP Tools
+
+- `threads_get_profile` - Get authenticated user's profile
+- `threads_get_threads` - List user's threads with pagination
+- `threads_get_thread` - Get specific thread by ID
+- `threads_create_thread` - Create text, image, or video threads
+- `threads_reply_to_thread` - Reply to existing threads
+- `threads_get_insights` - Get thread analytics and metrics
+- `threads_get_replies` - Get all replies to a thread
+- `threads_get_conversation` - Get full conversation thread
+
+## Usage Examples
+
+### Basic Client Usage
+```typescript
+import { ThreadsClient } from 'threads-mcp';
+
+const client = new ThreadsClient({
+  accessToken: process.env.THREADS_ACCESS_TOKEN,
+  userId: process.env.THREADS_USER_ID,
+});
+
+// Create a thread
+const thread = await client.createThread({
+  text: 'Hello from Threads MCP! 🚀',
+});
+
+// Get profile
+const profile = await client.getProfile(['id', 'username', 'threads_profile_picture_url']);
+```
+
+### Enhanced Client with Rate Limiting & Caching
+```typescript
+import { EnhancedThreadsClient } from 'threads-mcp';
+
+const client = new EnhancedThreadsClient({
+  accessToken: process.env.THREADS_ACCESS_TOKEN,
+  userId: process.env.THREADS_USER_ID,
+  rateLimit: {
+    maxRequests: 100,
+    windowMs: 60000,
+  },
+  cache: {
+    ttl: 300000,
+    maxSize: 100,
+  },
+});
+```
+
+## Claude Prompts
+
+Try these with Claude Desktop after installing:
+- "Show me my Threads profile information"
+- "Post a thread saying 'Hello from Claude! 👋'"
+- "Get analytics for my most recent thread"
+- "Show me my last 10 threads"
+- "Reply to thread ID xyz with 'Great post!'"
+
+## Project Structure
+
+```
+src/
+├── client/              # API client implementation
+│   ├── threads-client.ts
+│   └── enhanced-threads-client.ts
+├── server.ts           # MCP server implementation
+├── types/              # TypeScript types and Zod schemas
+├── utils/              # Rate limiting, caching, webhooks
+└── index.ts            # Entry point
+
+docs/                   # GitHub Pages site (Threads-style)
+examples/               # Usage examples
+```
+
+## Testing
+
+```bash
+pnpm test              # Run all tests
+pnpm test:coverage     # Generate coverage report
+pnpm build             # Build for production
+pnpm lint              # Run ESLint
+```
+
+## Technical Stack
+
+- **Language**: TypeScript
+- **Runtime**: Node.js
+- **Protocol**: Model Context Protocol (MCP)
+- **Validation**: Zod
+- **HTTP Client**: Axios
+- **Testing**: Vitest
+- **Coverage**: 90%+ (statements, branches, functions, lines)
+
+## API Coverage
+
+Implements full Threads API including:
+- Profile management
+- Thread creation (text, images, videos)
+- Thread replies and conversations
+- Analytics and insights
+- Media handling
+- Rate limiting compliance
+
+## Advanced Features
+
+### Rate Limiting
+- Token bucket algorithm
+- Configurable limits per endpoint
+- Automatic retry with backoff
+- Request queuing
+
+### Caching
+- In-memory cache with TTL
+- LRU eviction policy
+- Automatic cleanup
+- Cache invalidation
+
+### Webhooks
+- Event subscription
+- HMAC-SHA256 signature verification
+- Automatic retries with exponential backoff
+- Event filtering
+
+## Documentation
+
+- Full API Reference: https://pegasusheavy.github.io/threads-mcp/API.html
+- Usage Examples: https://pegasusheavy.github.io/threads-mcp/EXAMPLES.html
+- GitHub: https://github.com/pegasusheavy/threads-mcp
+
+## Contributing
+
+See CONTRIBUTING.md for guidelines.
+
+## License
+
+MIT License - Copyright (c) 2025 Pegasus Heavy Industries LLC
+
+## Contact
+
+- GitHub Issues: https://github.com/pegasusheavy/threads-mcp/issues
+- Repository: https://github.com/pegasusheavy/threads-mcp
+

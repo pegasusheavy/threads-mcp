@@ -310,7 +310,9 @@ export class ThreadsClient {
    */
   async validateToken(): Promise<boolean> {
     try {
-      await this.getProfile(['id']);
+      // Request 'username' too: ThreadsUserSchema requires it, so validating with
+      // only 'id' makes Zod throw and rejects a valid token (manual-token mode).
+      await this.getProfile(['id', 'username']);
       return true;
     } catch {
       return false;

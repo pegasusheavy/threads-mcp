@@ -116,16 +116,21 @@ describe('Threads Type Schemas', () => {
       expect(result.is_quote_post).toBe(true);
     });
 
-    it('should reject media with invalid media_type', () => {
-      const invalidMedia = {
-        id: 'thread-123',
-        media_product_type: 'THREADS',
-        media_type: 'INVALID_TYPE',
-        permalink: 'https://threads.net/@user/post/123',
-        timestamp: '2024-01-01T00:00:00Z',
-      };
+    it('should accept evolving media_type values from the API (tolerant reader)', () => {
+      // The read API returns TEXT_POST (not TEXT), plus REPOST_FACADE, AUDIO
+      // and new types Meta adds over time. The schema must not reject them.
+      for (const media_type of ['TEXT_POST', 'REPOST_FACADE', 'AUDIO', 'SOME_FUTURE_TYPE']) {
+        const media = {
+          id: 'thread-123',
+          media_product_type: 'THREADS',
+          media_type,
+          permalink: 'https://threads.net/@user/post/123',
+          timestamp: '2024-01-01T00:00:00Z',
+        };
 
-      expect(() => ThreadsMediaSchema.parse(invalidMedia)).toThrow();
+        expect(() => ThreadsMediaSchema.parse(media)).not.toThrow();
+        expect(ThreadsMediaSchema.parse(media).media_type).toBe(media_type);
+      }
     });
   });
 
@@ -300,12 +305,7 @@ describe('Threads Type Schemas', () => {
       const multiValueInsights = {
         name: 'engagement',
         period: '28_days',
-        values: [
-          { value: 100 },
-          { value: 150 },
-          { value: 200 },
-          { value: 180 },
-        ],
+        values: [{ value: 100 }, { value: 150 }, { value: 200 }, { value: 180 }],
         title: 'Engagement Rate',
         description: 'Total engagement over 28 days',
       };
@@ -315,4 +315,3 @@ describe('Threads Type Schemas', () => {
     });
   });
 });
-

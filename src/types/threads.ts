@@ -12,7 +12,11 @@ export const ThreadsUserSchema = z.object({
 export const ThreadsMediaSchema = z.object({
   id: z.string(),
   media_product_type: z.string(),
-  media_type: z.enum(['TEXT', 'IMAGE', 'VIDEO', 'CAROUSEL_ALBUM']),
+  // Tolerant reader: Threads returns evolving values here (TEXT_POST, IMAGE,
+  // VIDEO, CAROUSEL_ALBUM, REPOST_FACADE, AUDIO, …) and adds more over time.
+  // A strict enum rejects a valid API response the moment Meta ships a new
+  // type, so we accept any string rather than hard-coding the set.
+  media_type: z.string(),
   media_url: z.string().optional(),
   permalink: z.string(),
   username: z.string().optional(),

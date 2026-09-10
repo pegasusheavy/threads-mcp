@@ -521,6 +521,22 @@ describe('ThreadsClient', () => {
       expect(result).toBe(true);
     });
 
+    it('requests username so a valid token is not rejected (regression)', async () => {
+      mockAxiosInstance.get.mockResolvedValueOnce({
+        data: { id: 'user-123', username: 'testuser' },
+      });
+
+      await client.validateToken();
+
+      // ThreadsUserSchema requires `username`. Validating with only `id`
+      // makes Zod throw on parse and rejects a valid token in manual-token
+      // mode. validateToken must request `username` as well.
+      const params = mockAxiosInstance.get.mock.calls[0][1].params as {
+        fields: string;
+      };
+      expect(params.fields.split(',')).toContain('username');
+    });
+
     it('should return false for invalid token', async () => {
       mockAxiosInstance.get.mockRejectedValueOnce(new Error('Unauthorized'));
 
@@ -549,4 +565,3 @@ describe('ThreadsClient', () => {
     });
   });
 });
-
